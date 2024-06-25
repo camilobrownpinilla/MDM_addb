@@ -1,0 +1,15 @@
+import os
+
+#FILE PARAMS
+DATA_PATH = "../data/addb_dataset/"
+GEOMETRY_PATH = "../data/Geometry/"
+
+#DIFFUSION PARAMS
+DIFFUSION_STEPS = 1000
+NOISE_SCHEDULE = 'cosine'
+SIGMA_SMALL = False
+
+#LOSS PARAMS
+LAMBDA_RCXYZ = 0.0
+LAMBA_VEL = 0.0
+LAMBA_FC = 0.0
