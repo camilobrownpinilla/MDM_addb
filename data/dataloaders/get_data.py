@@ -8,13 +8,16 @@ def get_dataset_class(name):
     else:
         raise ValueError(f'Unsupported dataset name: {name}')
     
-def get_dataset(name, window_size):
+def get_dataset(name, window_size, split):
+    if split not in ['train', 'test']:
+        raise ValueError('Unsupported Data Split')
     DATA = get_dataset_class(name)
-    dataset = DATA(window_size=window_size)
+    data_path = f"./data/addb_dataset/{split}"
+    dataset = DATA(window_size=window_size, data_path=data_path)
     return dataset
 
-def get_dataset_loader(name, batch_size, window_size):
-    dataset = get_dataset(name, window_size)
+def get_dataset_loader(name, batch_size, window_size, split):
+    dataset = get_dataset(name, window_size, split)
     collate = collate
 
     loader = DataLoader(
