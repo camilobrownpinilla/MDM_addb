@@ -6,19 +6,19 @@ from diffusion.respace import SpacedDiffusion, space_timesteps
 
 class ModelArgs:
 
-    def get_model_args():
+    def get_model_args(dataset):
         # SMPL defaults ##FIND ADDB DEFAULTS
         data_rep = 'rot6d'
-        njoints = 25
-        nfeats = 6 
+        njoints = dataset.num_joints
+        nfeats = dataset.num_dofs
         latent_dim = 256
         layers = 8
-        dataset = 'addb'
+        data_name = 'addb'
 
         return {'modeltype': '', 'njoints': njoints, 'nfeats': nfeats,
             'translation': True, 'pose_rep': 'rot6d', 'glob': True, 'glob_rot': True,
             'latent_dim': latent_dim, 'ff_size': 1024, 'num_layers': layers, 'num_heads': 4,
-            'dropout': 0.1, 'activation': "gelu", 'data_rep': data_rep,'dataset': dataset}
+            'dropout': 0.1, 'activation': "gelu", 'data_rep': data_rep,'dataset': data_name}
 
 
 
