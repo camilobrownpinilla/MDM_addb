@@ -148,7 +148,7 @@ class AddBiomechanicsDataset(Dataset):
                                                                    includeProcessingPasses=True)
         assert (len(frames) == self.window_size // self.stride)
 
-        first_passes: List[nimble.biomechanics.FramePass] = [frame.processingPasses[0] for frame in frames]
+        first_passes: List[nimble.biomechanics.FramePass] = [frame.processingPasses[0] for frame in frames] #Kinematics
         output_passes: List[nimble.biomechanics.FramePass] = [frame.processingPasses[-1] for frame in frames]
 
         input_dict: Dict[str, torch.Tensor] = {}
