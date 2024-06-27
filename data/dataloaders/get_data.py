@@ -1,5 +1,6 @@
 from torch.utils.data import DataLoader
 from data.dataloaders.tensors import collate 
+from utils import config
 
 def get_dataset_class(name):
     if name == 'addb':
@@ -13,7 +14,8 @@ def get_dataset(name, window_size, split):
         raise ValueError('Unsupported Data Split')
     DATA = get_dataset_class(name)
     data_path = f"./data/addb_dataset/{split}"
-    dataset = DATA(window_size=window_size, data_path=data_path)
+    geometry_folder = config.GEOMETRY_PATH
+    dataset = DATA(window_size=window_size, data_path=data_path, geometry_folder=geometry_folder)
     return dataset
 
 def get_dataset_loader(name, batch_size, window_size, split):
