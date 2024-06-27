@@ -11,9 +11,10 @@ from utils.fixseed import fixseed
 from utils import dist_util
 from utils import config
 from train.training_loop import TrainLoop
-from data.dataloaders.get_data import get_dataset_loader
+from data.dataloaders.get_data import get_dataset_loader, get_dataset
 from utils.model_util import create_model_and_diffusion
 from train.train_platforms import ClearmlPlatform, TensorboardPlatform, NoPlatform  # required for the eval operation
+from tqdm import tqdm
 
 def main():
     # args = train_args()
@@ -35,10 +36,10 @@ def main():
     dist_util.setup_dist(0)
 
     print("creating data loader...")
-    data = get_dataset_loader(name=config.DATASET, batch_size=config.BATCH_SIZE, window_size=config.WINDOW_SIZE, split='train')
+    data = tqdm(get_dataset_loader(name=config.DATASET, batch_size=config.BATCH_SIZE, window_size=config.WINDOW_SIZE, split='train'))
 
     print("creating model and diffusion...")
-    model, diffusion = create_model_and_diffusion(data)
+    model, diffusion = create_model_and_diffusion(get_dataset(name=config.DATASET, window_size=config.WINDOW_SIZE, split='train'))
     model.to(dist_util.dev())
     # model.rot2xyz.smpl_model.eval()
 

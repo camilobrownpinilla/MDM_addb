@@ -4,6 +4,10 @@ from torch.utils.data import Dataset
 from typing import List, Dict, Tuple
 import os
 
+def is_file_empty(root, filename):
+    filepath = os.path.join(root, filename)
+    return os.stat(filepath).st_size == 0
+
 
 class InputDataKeys:
     # These are the joint quantities for the joints that we are observing

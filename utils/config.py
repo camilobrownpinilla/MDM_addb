@@ -1,11 +1,16 @@
 import os
+import train.train_platforms
+
+SEED = 10
+NUM_WORKERS = 1
 
 #FILE PARAMS
-DATA_PATH = "../data/addb_dataset/"
-GEOMETRY_PATH = "../data/Geometry/"
+DATA_PATH = "data/addb_dataset/"
+GEOMETRY_PATH = "/data/Geometry/"
 DATASET = 'addb'
 SAVE_DIR = "../save/"
-OVERWRITE = False
+OVERWRITE = True
+WINDOW_SIZE = 60
 
 #DIFFUSION PARAMS
 DIFFUSION_STEPS = 1000
@@ -26,6 +31,7 @@ LR = 0.0002
 LR_ANNEAL_STEPS = 0
 WEIGHT_DECAY = 0.0
 NUM_STEPS = 600_000
+TRAIN_PLATFORM_TYPE = 'NoPlatform'
 
 #LOGGING/SAVING
 LOG_INTERVAL = 1000

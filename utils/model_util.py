@@ -22,8 +22,8 @@ class ModelArgs:
 
 
 
-def create_model_and_diffusion():
-    model = MDM(ModelArgs.get_model_args())
+def create_model_and_diffusion(data):
+    model = MDM(ModelArgs.get_model_args(data))
     diffusion = create_gaussian_diffusion()
     return model, diffusion
 
