@@ -1,6 +1,6 @@
-import config
+import utils.config
 from model.uncond_mdm import MDM
-from diffusion import guassian_diffusion as gd
+from diffusion import gaussian_diffusion as gd
 from diffusion.respace import SpacedDiffusion, space_timesteps
 
 
@@ -64,3 +64,7 @@ def create_gaussian_diffusion():
         lambda_fc=config.LAMBA_FC,
     )
 
+def load_model_wo_clip(model, state_dict):
+    missing_keys, unexpected_keys = model.load_state_dict(state_dict, strict=False)
+    assert len(unexpected_keys) == 0
+    assert all([k.startswith('clip_model.') for k in missing_keys])

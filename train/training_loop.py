@@ -16,9 +16,9 @@ from diffusion.fp16_util import MixedPrecisionTrainer
 from diffusion.resample import LossAwareSampler, UniformSampler
 from tqdm import tqdm
 from diffusion.resample import create_named_schedule_sampler
-from data.data_loaders.humanml.networks.evaluator_wrapper import EvaluatorMDMWrapper
+from data.dataloaders.humanml.networks.evaluator_wrapper import EvaluatorMDMWrapper
 from eval import eval_humanml, eval_humanact12_uestc
-from data_loaders.get_data import get_dataset_loader
+from data.dataloaders.get_data import get_dataset_loader
 
 
 # For ImageNet experiments, this was a good default value.

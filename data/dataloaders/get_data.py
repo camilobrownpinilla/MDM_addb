@@ -1,5 +1,5 @@
 from torch.utils.data import DataLoader
-from dataloaders.tensors import collate 
+from data.dataloaders.tensors import collate 
 
 def get_dataset_class(name):
     if name == 'addb':

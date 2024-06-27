@@ -1,4 +1,7 @@
 *.b3d
 *.partial
-*/__pycache__
+**/__pycache__
+**/__init__.py
 data/Geometry
+data/addb_dataset
+
