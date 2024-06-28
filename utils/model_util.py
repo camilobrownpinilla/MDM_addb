@@ -1,4 +1,4 @@
-import utils.config
+from utils import config
 from model.uncond_mdm import MDM
 from diffusion import gaussian_diffusion as gd
 from diffusion.respace import SpacedDiffusion, space_timesteps
@@ -23,7 +23,10 @@ class ModelArgs:
 
 
 def create_model_and_diffusion(data):
-    model = MDM(ModelArgs.get_model_args(data))
+    args = ModelArgs.get_model_args(data)
+    model = MDM(modeltype=args['modeltype'], njoints=args['njoints'], nfeats=args['nfeats'],
+                translation=args['translation'], pose_rep=args['pose_rep'],
+                glob=args['glob'], glob_rot=args['glob_rot'])
     diffusion = create_gaussian_diffusion()
     return model, diffusion
 

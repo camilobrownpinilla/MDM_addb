@@ -28,6 +28,7 @@ class MDM(nn.Module):
         self.ff_size = ff_size
         self.num_layers = num_layers
         self.num_heads = num_heads
+        self.activation = activation
         self.dropout = dropout
 
         self.input_feats = self.njoints * self.nfeats
@@ -51,12 +52,15 @@ class MDM(nn.Module):
         self.output_process = OutputProcess(self.data_rep, self.input_feats, 
                                             self.latent_dim, self.njoints,
                                             self.nfeats)
+        
+    def parameters_wo_clip(self):
+        return [p for name, p in self.named_parameters() if not name.startswith('clip_model.')]
+    
     def forward(self, x, timesteps, y=None):
         """
         x: [batch_size, njoints, nfeats, max_frames], denoted x_t in the paper
         timesteps: [batch_size] (int)
         """
-        bs, njoints, nfeats, nframes = x.shape
         emb = self.embed_timestep(timesteps)
 
         x = self.input_process(x)
@@ -109,6 +113,7 @@ class InputProcess(nn.Module):
             self.velEmbedding = nn.Linear(self.input_feats, self.latent_dim)
 
     def forward(self, x):
+        print(x.shape)
         bs, njoints, nfeats, nframes = x.shape
         x = x.permute((3, 0 ,1 ,2)).reshape(nframes, bs, njoints*nfeats)
 

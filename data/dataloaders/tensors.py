@@ -1,4 +1,7 @@
 import torch
+from typing import Dict
+from data.AddBiomechanicsDataset import AddBiomechanicsDataset, InputDataKeys, OutputDataKeys
+
 
 def collate_tensors(batch):
     dims = batch[0].dim()
@@ -15,10 +18,12 @@ def collate_tensors(batch):
 
 def collate(batch):
     notnone_batches = [b for b in batch if b is not None]
-    databatch = [b['inp'] for b in notnone_batches]
-    
+
+    inputs: Dict[str, torch.Tensor]
+    inputs, *_ = notnone_batches
+    databatch = [values for values in inputs[0].values()]
+    # print(databatch)
     databatchTensor = collate_tensors(databatch)
-   
     motion = databatchTensor
 
     return motion
