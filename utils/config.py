@@ -8,7 +8,7 @@ NUM_WORKERS = 1
 DATA_PATH = "data/addb_dataset/"
 GEOMETRY_PATH = "/data/Geometry/"
 DATASET = 'addb'
-SAVE_DIR = "../save/"
+SAVE_DIR = "save/"
 OVERWRITE = True
 WINDOW_SIZE = 60
 

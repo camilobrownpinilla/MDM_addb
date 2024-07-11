@@ -1,5 +1,5 @@
 from utils import config
-from model.uncond_mdm import MDM
+from model.adjusted_mdm import MDM
 from diffusion import gaussian_diffusion as gd
 from diffusion.respace import SpacedDiffusion, space_timesteps
 
@@ -7,26 +7,20 @@ from diffusion.respace import SpacedDiffusion, space_timesteps
 class ModelArgs:
 
     def get_model_args(dataset):
-        # SMPL defaults ##FIND ADDB DEFAULTS
-        data_rep = 'rot6d'
-        njoints = dataset.num_joints
-        nfeats = dataset.num_dofs
+        ndofs = dataset.num_dofs
         latent_dim = 256
         layers = 8
         data_name = 'addb'
 
-        return {'modeltype': '', 'njoints': njoints, 'nfeats': nfeats,
-            'translation': True, 'pose_rep': 'rot6d', 'glob': True, 'glob_rot': True,
-            'latent_dim': latent_dim, 'ff_size': 1024, 'num_layers': layers, 'num_heads': 4,
-            'dropout': 0.1, 'activation': "gelu", 'data_rep': data_rep,'dataset': data_name}
+        return { 'ndofs': ndofs, 'latent_dim': latent_dim, 'ff_size': 1024, 
+                'num_layers': layers, 'num_heads': 4,
+                'dropout': 0.1, 'activation': "gelu",'dataset': data_name}
 
 
 
 def create_model_and_diffusion(data):
     args = ModelArgs.get_model_args(data)
-    model = MDM(modeltype=args['modeltype'], njoints=args['njoints'], nfeats=args['nfeats'],
-                translation=args['translation'], pose_rep=args['pose_rep'],
-                glob=args['glob'], glob_rot=args['glob_rot'])
+    model = MDM(dofs=args['ndofs'], window_size=config.WINDOW_SIZE)
     diffusion = create_gaussian_diffusion()
     return model, diffusion
 

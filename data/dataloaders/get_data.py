@@ -25,7 +25,7 @@ def get_dataset_loader(name, batch_size, window_size, split):
 
     loader = DataLoader(
         dataset, batch_size=batch_size, shuffle=True,
-        num_workers=config.NUM_WORKERS, drop_last=True, collate_fn=collate_fn
+        num_workers=config.NUM_WORKERS, drop_last=True
     )
 
     return loader

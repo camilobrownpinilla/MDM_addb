@@ -48,7 +48,6 @@ class MDM(nn.Module):
         self.seqTransEncoder = nn.TransformerEncoder(seqTransEncoderLayer,
                                                  num_layers=self.num_layers)
         self.embed_timestep = TimestepEmbedder(self.latent_dim, self.sequence_pos_encoder)
-        
         self.output_process = OutputProcess(self.data_rep, self.input_feats, 
                                             self.latent_dim, self.njoints,
                                             self.nfeats)
@@ -100,7 +99,7 @@ class TimestepEmbedder(nn.Module):
                                         nn.Linear(time_embed_dim, time_embed_dim))
         
     def forward(self, timesteps):
-        return self.time_embed(self.sequence_pos_encoder.pe[timesteps]).permute(1, 0, 2)
+        return self.time_embed(self.sequence_pos_encoder.pe[timesteps])
     
 class InputProcess(nn.Module):
     def __init__(self, data_rep, input_feats, latent_dim):
